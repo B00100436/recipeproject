@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Recipe index{% endblock %}
+{% block title %}Recipe Page{% endblock %}
 
 {% block body %}
 
@@ -8,10 +8,7 @@
     <table>
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Title</th>
-                <th>Summary</th>
-                <th>Steps</th>
                 <th>Ingredients</th>
                 <th>Author</th>
                 <th>actions</th>
@@ -20,15 +17,16 @@
         <tbody>
         {% for recipe in recipes %}
             <tr>
-                <td>{{ recipe.id }}</td>
                 <td>{{ recipe.title }}</td>
-                <td>{{ recipe.summary }}</td>
-                <td>{{ recipe.steps }}</td>
                 <td>{{ recipe.ingredients }}</td>
                 <td>{{ recipe.author }}</td>
                 <td>
                     <a href="{{ path('recipe_show', {'id': recipe.id}) }}">show</a>
-                    <a href="{{ path('recipe_edit', {'id': recipe.id}) }}">edit</a>
+                    {% if is_granted('ROLE_USER') %}
+                <br>
+                        <a href="{{ path('recipe_edit', {'id': recipe.id}) }}">edit</a>
+
+                    {% endif %}
                 </td>
             </tr>
         {% else %}
@@ -38,6 +36,8 @@
         {% endfor %}
         </tbody>
     </table>
-    <a href="{{ path('recipe_new') }}">Create new</a>
+    {% if is_granted('ROLE_USER') %}
+            <a href="{{ path('recipe_new') }}">Create new</a>
+    {% endif %}
 
 {% endblock %}
