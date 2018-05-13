@@ -26,17 +26,14 @@ class User implements UserInterface, \Serializable
      * @ORM\Column(type="json_array")
      */
     private $roles = [];
-
     public function getSalt()
     {
         // no salt needed since we are using bcrypt
         return null;
     }
-
     public function eraseCredentials()
     {
     }
-
     /** @see \Serializable::serialize() */
     public function serialize()
     {
@@ -44,6 +41,8 @@ class User implements UserInterface, \Serializable
             $this->id,
             $this->username,
             $this->password,
+            // see section on salt below
+            // $this->salt,
         ));
     }
     /** @see \Serializable::unserialize() */
@@ -53,9 +52,10 @@ class User implements UserInterface, \Serializable
             $this->id,
             $this->username,
             $this->password,
+            // see section on salt below
+            // $this->salt
             ) = unserialize($serialized);
     }
-
     public function getRoles()
     {
         $roles = $this->roles;
@@ -63,7 +63,6 @@ class User implements UserInterface, \Serializable
         $roles[] = 'ROLE_USER';
         return array_unique($roles);
     }
-
     /**
      * Set roles
      *
@@ -75,7 +74,6 @@ class User implements UserInterface, \Serializable
         $this->roles = $roles;
         return $this;
     }
-
     /**
      * @return mixed
      */

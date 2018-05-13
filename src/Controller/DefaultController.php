@@ -8,13 +8,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class DefaultController extends Controller
 {
     /**
-     * @Route("/default", name="default")
+     * @Route("/", name="homepage")
      */
-    public function index()
+    public function indexAction()
     {
-        return $this->json([
-            'message' => 'Welcome to your new controller!',
-            'path' => 'src/Controller/DefaultController.php',
-        ]);
+        $template = 'default/index.html.twig';
+        $args = [];
+        return $this->render($template, $args);
     }
 }
