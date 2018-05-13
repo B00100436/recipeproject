@@ -12,10 +12,10 @@ class AdminController extends Controller
      * @Route("/admin", name="admin")
      * @Security("has_role('ROLE_ADMIN')")
      */
-    public function index()
+    public function indexAction()
     {
-        return $this->render('admin/index.html.twig', [
-            'controller_name' => 'AdminController',
-        ]);
+        $template = 'admin/index.html.twig';
+        $args = [];
+        return $this->render($template, $args);
     }
 }
