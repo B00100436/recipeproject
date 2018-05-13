@@ -41,6 +41,11 @@ class Recipe
      */
     private $author;
 
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $image;
+
     public function getId()
     {
         return $this->id;
