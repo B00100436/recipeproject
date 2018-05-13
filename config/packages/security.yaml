@@ -1,21 +1,13 @@
 security:
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
-#      in_memory: { memory: ~ }
-      in_memory:
-          memory:
-              users:
-                  user:
-                      password: user
-                      roles: 'ROLE_USER'
-                  admin:
-                      password: admin
-                      roles: 'ROLE_ADMIN'
-                  pol:
-                      password: password
-                      roles: 'ROLE_ADMIN'
+        our_db_provider:
+            entity:
+                class: App\Entity\User
+                property: username
     encoders:
-        Symfony\Component\Security\Core\User\User: plaintext
+        App\Entity\User:
+            algorithm: bcrypt
 
     firewalls:
         dev:
